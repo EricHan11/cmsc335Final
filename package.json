@@ -1,0 +1,11 @@
+{
+  "name": "cmsc335final",
+  "version": "1.0.0",
+  "description": "Final project for CMSC335",
+  "main": "pokemon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh Fishman, Eric Han, Wenzhuo Niu",
+  "license": "ISC"
+}
