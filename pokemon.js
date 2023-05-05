@@ -68,7 +68,7 @@ app.get("/found", (req, res) => {
 });
 
 app.get("/findCustom", (req, res) => {
-    res.render("findCustom");
+    res.render("findCustom", {pokemonInformation: ""});
 });
 
 //create custom pokemon
@@ -84,6 +84,28 @@ app.post("/createPokemon", async (req, res) => {
         res.render("create", notif);
     } catch (e) {
         console.error(e);
+    } finally {
+        await client.close();
+    }
+});
+
+app.post("/findCustom", async (req, res) => {
+    try {
+        await client.connect();
+        let filter = {name: req.body.name};
+        const cursor = await client.db(databaseAndCollection.db)
+        .collection(databaseAndCollection.collection)
+        .findOne(filter);
+
+        const pokemonInfo = {pokemonInformation: `<fieldset><legend><strong>${cursor.name}</strong></legend>
+        <strong>Type: </strong>${cursor.type1} and ${cursor.type2} <br><br>
+        <strong>Description: </strong> ${cursor.description}`};
+    
+        res.render("findCustom", pokemonInfo);
+    } catch (e) {
+        console.error(e);
+        const pokemonInfo = {pokemonInformation: "There is no such Pokemon in the Pokedex. Try again."};
+        res.render("findCustom", pokemonInfo);
     } finally {
         await client.close();
     }
