@@ -9,6 +9,10 @@ const password = process.env.MONGO_DB_PASSWORD;
 const databaseAndCollection = {db: process.env.MONGO_DB_NAME, collection: process.env.MONGO_COLLECTION};
 
 const {MongoClient, ServerApiVersion} = require('mongodb');
+const uri = `mongodb+srv://${userName}:${password}@cluster0.jiors0z.mongodb.net/?retryWrites=true&w=majority`;
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 const http = require("http");
 const express = require("express");
 const app = express();
@@ -22,11 +26,69 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:false}));
 
 //Do we need a command line parser? Don't think so, but we may need a way to close the server?
+process.stdin.setEncoding("utf8");
+
+if (process.argv.length != 3) {
+    process.stdout.write(`Usage .\pokemon.js portNumber`);
+    process.exit(1);
+}
+
+console.log(`Web server started and running at http://localhost:${process.argv[2]}/`);
+
+process.stdout.write("Stop to shutdown the server: ");
+
+
+process.stdin.on('readable', () => { //Read input of user
+    
+    let dataInput = process.stdin.read();
+    if (dataInput !== null) {
+        let command = dataInput.trim();
+        if (command === "stop") {
+            console.log("Shutting down the server");
+            process.exit(0); //exiting
+        }else {
+            console.log(`Invalid command: ${command}`);
+        }
+        process.stdout.write(prompt);
+        process.stdin.resume();
+    }
+});
 
 //Index
 app.get("/", (req, res) => {
     res.render("index", {});
 });
+
+app.get("/create", (req, res) => {
+    res.render("create", {notification: ""}); //Keep {} for notification
+});
+
+app.get("/found", (req, res) => {
+    res.render("found");
+});
+
+app.get("/findCustom", (req, res) => {
+    res.render("findCustom");
+});
+
+//create custom pokemon
+app.post("/createPokemon", async (req, res) => {
+    try {
+        await client.connect();
+
+        //Create pokemon and send to db
+        let pokemon = {name: req.body.name, type1: req.body.type1, type2: req.body.type2, description: req.body.description};
+        await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(pokemon);
+
+        const notif = {notification: `Pokemon ${req.body.name} created!`};
+        res.render("create", notif);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+});
+
 //Look up existing pokemon using the API
 app.get("/findPokemon", (req, res) => {
     res.render("find", {});
@@ -66,4 +128,4 @@ async function findPokemon(name) {
 //Search for and retrieve a custom pokemon that was saved in MongoDB
 
 //Listener
-app.listen(portNumber);
+app.listen(process.argv[2]);
