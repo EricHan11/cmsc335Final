@@ -4,17 +4,19 @@
 <head>
     <meta charset="utf-8">
     <title>Lookup Existing Pokemon</title>
-    <!--Will want to include some CSS eventually-->
+    <link rel="stylesheet" href="/styles.css"> <!-- Include the existing CSS file -->
 </head>
 <body>
-    <h1>Find Existing Pokemon</h1>
-    <p>Want some inspiration for your custom Pokemon? Search for real Pokemon here!</p>
-    <!--Action attribute may change if portNumber does-->
-    <form action="/findPokemon" method="post">
-        <strong>Name or Pokedex Number: </strong><input name="name" type="text" placeholder="Bulbasaur"><hr>
-        <input type="submit" value="Find Pokemon!">
-    </form>
-    <br>
-    <a href="/">Back to PokeNode</a>
+    <div class="container">
+        <h1>Find Existing Pokemon</h1>
+        <p>Want some inspiration for your custom Pokemon? Search for real Pokemon here!</p>
+        <!--Action attribute may change if portNumber does-->
+        <form action="/findPokemon" method="post">
+            <label>Name or Pokedex Number: </label><input name="name" type="text" placeholder="Bulbasaur"><hr>
+            <input type="submit" value="Find Pokemon!">
+        </form>
+        <br>
+        <a href="/">Back to PokeNode</a>
+    </div>
 </body>
 </html>
