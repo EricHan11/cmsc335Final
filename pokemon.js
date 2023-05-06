@@ -1,6 +1,4 @@
 const path = require("path");
-//credentials folder and .env file ommitted, don't want to push existing credentials to a public repository.
-//Will find a solution to this later
 require("dotenv").config({ path: path.resolve(__dirname, 'credentials/.env')});
 
 const userName = process.env.MONGO_DB_USERNAME;
@@ -108,6 +106,33 @@ app.post("/findCustom", async (req, res) => {
         res.render("findCustom", pokemonInfo);
     } finally {
         await client.close();
+    }
+});
+
+app.get("/listAll", (req, res) => {
+    res.render("listAll", {table: ""});
+});
+
+app.post("/listAll", async (req, res) => {
+    try {
+        await client.connect();
+        let filter = {};
+        const cursor = client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).find(filter);
+        const result = await cursor.toArray();
+        let table = `<table><tr><th>Name</th><th>Type 1</th><th>Type 2</th></tr>`
+        result.forEach(x => {
+            table = table + `<tr><td>${x.name}</td><td>${x.type1}</td><td>${x.type2}</td></tr>`;
+        });
+        table = table + `</table>`;
+        const variables = {
+            table: table
+        };
+        res.render("listAll", variables);
+    } catch (e) {
+        console.error(e);
+        res.send("<h2>An error occured.</h2>");
+    } finally {
+        await client.close()
     }
 });
 

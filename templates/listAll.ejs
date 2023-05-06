@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>See All Customs</title>
+    <!--Will want to include some CSS eventually-->
+</head>
+<body>
+    <h1>See All Custom Pokemon</h1>
+    <hr>
+    <p>Want to see a table of all Custom Pokemon? Click the button below!</p>
+    <form action="/listAll" method="post">
+        <input type="submit" value="List All Customs">
+    </form>
+    <div>
+        <%- table %>
+    </div>
+    <br>
+    <a href="/">Back to PokeNode</a>
+</body>
+</html>
