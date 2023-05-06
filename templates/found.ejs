@@ -4,15 +4,18 @@
 <head>
     <meta charset="utf-8">
     <title><%- name %></title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Include the existing CSS file -->
 </head>
 <body>
-    <h1>Pokedex Entry: <u><%- name %></u></h1>
-    <strong>Name : </strong><%- name %><br>
-    <strong>Pokedex ID: </strong><%- id %><br>
-    <strong>Type(s): </strong><%- types %><br>
-    <strong>Sprite: </strong><br>
-    <%- sprite %>
-    <br><br>
-    <a href="/">Back to PokeNode</a>
+    <div class="container">
+        <h1>Pokedex Entry: <u><%- name %></u></h1>
+        <strong>Name : </strong><%- name %><br>
+        <strong>Pokedex ID: </strong><%- id %><br>
+        <strong>Type(s): </strong><%- types %><br>
+        <strong>Sprite: </strong><br>
+        <%- sprite %>
+        <br><br>
+        <a href="/">Back to PokeNode</a>
+    </div>
 </body>
 </html>
