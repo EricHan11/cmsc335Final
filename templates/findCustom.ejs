@@ -4,20 +4,22 @@
 <head>
     <meta charset="utf-8">
     <title>Find Custom Pokemon</title>
-    <!--Will want to include some CSS eventually-->
+    <link rel="stylesheet" href="/styles.css"> <!-- Include the existing CSS file -->
 </head>
 <body>
-    <h1>Find Custom Existing Pokemon</h1>
-    <p>Search for custom Pokemon here!</p>
+    <div class="container">
+        <h1>Find Custom Existing Pokemon</h1>
+        <p>Search for custom Pokemon here!</p>
 
-    <form action="/findCustom" method="post">
-        <strong>Pokemon Name: </strong><input name="name" type="text" placeholder="Bulbasaur"><hr>
-        <input type="submit" value="Find Pokemon!">
-    </form>
-    <br>
-    <div>
-        <%- pokemonInformation %>
+        <form action="/findCustom" method="post">
+            <label>Pokemon Name: </label><input name="name" type="text" placeholder="Bulbasaur"><hr>
+            <input type="submit" value="Find Pokemon!">
+        </form>
+        <br>
+        <div>
+            <%- pokemonInformation %>
+        </div>
+        <a href="/">Back to PokeNode</a>
     </div>
-    <a href="/">Back to PokeNode</a>
 </body>
 </html>
