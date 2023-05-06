@@ -5,14 +5,15 @@
     <meta charset="utf-8">
     <title>Create Custom Pokemon</title>
     <!--Will want to include some CSS eventually-->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="templates/styles.css">
 </head>
 <body>
+    <div  class="container"> 
     <h1>Create a Custom Pokemon!</h1>
     <!--Action attribute may change if portNumber does-->
     <form action="/createPokemon" method="post">
-        <strong>Name: </strong><input name="name" type="text" required>
-        <strong>Type: </strong><br>
+        <label>Name: </label><input name="name" type="text" required>
+        <label>Type: </label><br>
         <select name="type1">
             <option value="normal">Normal</option>
             <option value="fire">Fire</option>
@@ -33,7 +34,7 @@
             <option value="steel">Steel</option>
             <option value="fairy">Fairy</option>
         </select>
-        <strong>Secondary Type: </strong><br>
+        <label>Secondary Type: </label><br>
         <select name="type2">
             <option value="none">None</option>
             <option value="normal">Normal</option>
@@ -60,7 +61,8 @@
         <hr>
         <input type="submit" value="Create Pokemon!"><input type="reset" value="Reset">
     </form>
-    <p><%- notification %></p>
+    <p class="notification"><%- notification %></p>
     <a href="/">Back to PokeNode</a>
+    </div>
 </body>
 </html>
