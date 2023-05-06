@@ -3,6 +3,7 @@
 # Team Members: 
                 Joshua Fishman (Directory ID: jfishma2)
                 Eric Han (Directory ID: ehan11)
+                Wenzhuo Niu (Directory ID: wniu)
 
 # App Description:
     PokeNode is a web app that allows users to create, save, and view custom Pokemon. The custom
