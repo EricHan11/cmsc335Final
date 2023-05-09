@@ -121,7 +121,7 @@ app.post("/listAll", async (req, res) => {
         const result = await cursor.toArray();
         let table = `<table><tr><th>Name</th><th>Type 1</th><th>Type 2</th></tr>`
         result.forEach(x => {
-            table = table + `<tr><td>${x.name}</td><td>${x.type1}</td><td>${x.type2}</td></tr>`;
+            table = table + `<tr><td>${x.name}</td><td>${x.type1.toUpperCase()}</td><td>${x.type2.toUpperCase()}</td></tr>`;
         });
         table = table + `</table>`;
         const variables = {
