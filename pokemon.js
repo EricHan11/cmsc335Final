@@ -159,7 +159,7 @@ app.post("/findPokemon", (req, res) => {
             sprite: sprite
         };
         res.render("found", variables);
-    }).catch(() => res.send("<h2>Pokemon Not Found</h2>"));
+    }).catch((error) => /*res.send("<h2>Pokemon Not Found</h2>")*/ res.send(error));
 });
 //API functionality
 async function findPokemon(name) {
